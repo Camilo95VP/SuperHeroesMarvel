@@ -20,7 +20,7 @@ public class ServiciosApi extends ConstruccionURL {
         String base = propiedad.baseUrl();
         String publica = propiedad.clavePublica();
         String hash = propiedad.hash();
-        
+
         Request request = new Request.Builder()
 
                 .url(base + id + "?nameStartsWith=sp&ts=1&apikey=" + publica + "&hash=" + hash)

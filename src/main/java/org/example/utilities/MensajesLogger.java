@@ -7,7 +7,7 @@ public class MensajesLogger {
     private static MensajesLogger instance = null;
 
     public static MensajesLogger getInstance() {
-        if (instance instanceof MensajesLogger) {
+        if (instance != null) {
             return instance;
         } else {
             instance = new MensajesLogger();
@@ -15,7 +15,14 @@ public class MensajesLogger {
         return instance;
     }
 
-    public void saludar(){
-        logger.info("Hola desde logger");
+    public void estadoConexion(){
+        logger.info("CONEXION EXITOSA 200 ok");
     }
+    public void respuestaApi(StringBuilder resultado){
+        logger.info(resultado);
+    }
+    public void error(String q){
+        logger.info("Ha ocurrido un error: " + q);
+    }
+
 }

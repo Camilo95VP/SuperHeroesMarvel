@@ -6,17 +6,24 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class ServiciosApi {
+public class ServiciosApi extends ConstruccionURL {
 
     static MensajesLogger mensaje = MensajesLogger.getInstance();
-    public void invocar() {
+    ConstruccionURL propiedad = new ConstruccionURL();
+
+    public void invocar(Integer id) throws IOException {
         OkHttpClient client = new OkHttpClient.Builder()
                 .readTimeout(1000, TimeUnit.MILLISECONDS)
                 .writeTimeout(1000, TimeUnit.MILLISECONDS)
                 .build();
 
+        String base = propiedad.baseUrl();
+        String publica = propiedad.clavePublica();
+        String hash = propiedad.hash();
+        
         Request request = new Request.Builder()
-                .url("https://gateway.marvel.com/v1/public/characters/1009351?nameStartsWith=sp&ts=1&apikey=9573d939ccaabc4773ecd00010c4b6d8&hash=e816be62b5be403d1800105aa80ab80b")
+
+                .url(base + id + "?nameStartsWith=sp&ts=1&apikey=" + publica + "&hash=" + hash)
                 .get()
                 .build();
 
@@ -27,11 +34,12 @@ public class ServiciosApi {
                 mensaje.error(String.valueOf(call));
             }
 
-            public void onResponse(Call call, Response response)
-                    throws IOException {
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                assert response.body() != null;
                 mensaje.respuestaApi(new StringBuilder(response.body().string()));
                 mensaje.estadoConexion();
             }
+
         });
     }
 }

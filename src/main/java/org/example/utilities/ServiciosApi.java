@@ -35,9 +35,8 @@ public class ServiciosApi extends ConstruccionURL {
             }
 
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                assert response.body() != null;
+                if (response.body() == null) throw new AssertionError();
                 mensaje.respuestaApi(new StringBuilder(response.body().string()));
-                mensaje.estadoConexion();
             }
 
         });

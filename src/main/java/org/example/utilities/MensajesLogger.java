@@ -25,5 +25,8 @@ public class MensajesLogger {
         logger.info("Ha ocurrido un error: " + q);
     }
 
+    public void informacion(String info){
+        logger.info(info);
+    }
 
 }

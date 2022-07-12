@@ -1,11 +1,12 @@
 package org.example.interfaces;
+import org.example.utilities.SuperHeroe;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
+public interface InterfaceSuperHeroes {
+    public boolean  agregarSuperHeroe(SuperHeroe h);
+    public String  eliminarSuperHeroe(String heroename);
 
-import java.lang.reflect.Type;
+    public boolean actualizarSuperHeroe(String heroename, SuperHeroe h);
+    public SuperHeroe listarSuperHeroe(String heroename);
 
-public interface InterfaceSuperHeroes<SuperHeroe> {
-    SuperHeroe deserializar(JsonElement elemento, Type tipo, JsonDeserializationContext jsonDeserializador) throws JsonParseException;
+
 }

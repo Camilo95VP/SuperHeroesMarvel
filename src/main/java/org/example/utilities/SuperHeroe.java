@@ -1,32 +1,42 @@
 package org.example.utilities;
 
-import java.util.List;
-
 public class SuperHeroe {
-    String nombre;
-    String descripcion;
+    Integer id;
+    String name;
+    String description;
 
-    public SuperHeroe(String nombre, List<List> descripcion) {
-        this.nombre = nombre;
-        this.descripcion = String.valueOf(descripcion);
+    public SuperHeroe(Integer id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
     }
 
-    public SuperHeroe(String name, String description) {
+    public String getName() {
+        return name;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Integer getId() {
+        return id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "SuperHeroe{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

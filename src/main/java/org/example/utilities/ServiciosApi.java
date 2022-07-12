@@ -1,7 +1,6 @@
 package org.example.utilities;
 
 import okhttp3.*;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -11,7 +10,7 @@ public class ServiciosApi extends ConstruccionURL {
     static MensajesLogger mensaje = MensajesLogger.getInstance();
     ConstruccionURL propiedad = new ConstruccionURL();
 
-    public void invocar(Integer id) throws IOException {
+    public String invocar(Integer id) throws IOException {
         OkHttpClient client = new OkHttpClient.Builder()
                 .readTimeout(1000, TimeUnit.MILLISECONDS)
                 .writeTimeout(1000, TimeUnit.MILLISECONDS)
@@ -27,18 +26,8 @@ public class ServiciosApi extends ConstruccionURL {
                 .get()
                 .build();
 
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                mensaje.error(String.valueOf(call));
-            }
-
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if (response.body() == null) throw new AssertionError();
-                mensaje.respuestaApi(new StringBuilder(response.body().string()));
-            }
-
-        });
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+        }
     }
 }
